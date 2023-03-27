@@ -2,28 +2,27 @@ import { HttpService } from '@nestjs/axios/dist/http.service';
 import { Injectable, Logger } from '@nestjs/common';
 import { AxiosError } from 'axios';
 import { catchError, map } from 'rxjs';
+import { SharedService } from '../shared/shared.service';
+import * as _ from 'lodash';
+import { Musicfestival } from '../musicfestival/musicfestival.interface';
 
 @Injectable()
 export class BandsService {
   private readonly logger = new Logger(BandsService.name);
-  constructor(private readonly httpService: HttpService) {}
+  constructor(
+    private readonly httpService: HttpService,
+    private readonly sharedService: SharedService,
+  ) {}
 
   async getBands() {
-    const bandData = await this.getBandsDataFromApi();
-    if (bandData) {
-      const updatedData = bandData.forEach((val) => {
-        val[0].bands.sort();
-      });
-      this.logger.debug('Data', updatedData);
-      return bandData;
-    } else {
-      return { error: 'Data Not Available' };
-    }
+    return this.getBandsDataFromApi().then((data) => {
+      return data;
+    });
   }
 
   async getBandsDataFromApi() {
-    return this.httpService
-      .get('https://eacp.energyaustralia.com.au/codingtest/api/v1/festivals')
+    return await this.httpService
+      .get(this.sharedService.endPoint())
       .pipe(map((response) => response.data))
       .pipe(
         catchError((error: AxiosError) => {
