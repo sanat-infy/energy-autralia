@@ -43,6 +43,10 @@ $ npm run start:dev
 
 # production mode
 $ npm run start:prod
+
+# Url to Open for the result
+http://localhost:3000/bands
+
 ```
 
 ## Test
