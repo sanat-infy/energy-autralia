@@ -3,8 +3,6 @@ import { Injectable, Logger } from '@nestjs/common';
 import { AxiosError } from 'axios';
 import { catchError, map } from 'rxjs';
 import { SharedService } from '../shared/shared.service';
-import * as _ from 'lodash';
-import { Musicfestival } from '../musicfestival/musicfestival.interface';
 
 @Injectable()
 export class BandsService {
