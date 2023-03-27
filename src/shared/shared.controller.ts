@@ -6,6 +6,6 @@ export class SharedController {
   constructor(private readonly sharedService: SharedService) {}
 
   getEndPoint(): string {
-    return this.sharedService.endPoint as unknown as string;
+    return this.sharedService.apiEndPointUrl as unknown as string;
   }
 }
