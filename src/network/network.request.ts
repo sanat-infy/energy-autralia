@@ -19,7 +19,7 @@ instance.interceptors.response.use(
   },
 );
 
-export const request = (method, url, payload, headers) => {
+export const request = (method, url, payload?, headers?) => {
   console.log(':::BaseURL', process.env.BASE_URL);
   console.log(':::FullURL', url);
   switch (method) {
