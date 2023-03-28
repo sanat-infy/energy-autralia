@@ -1,9 +1,10 @@
 import { HttpService } from '@nestjs/axios/dist/http.service';
 import { Injectable, Logger } from '@nestjs/common';
-import { AxiosError } from 'axios';
-import { catchError, map } from 'rxjs';
 import { Musicfestival } from '../model/musicfestival/musicfestival.interface';
 import { SharedService } from '../shared/shared.service';
+import { request } from '../network/network.request';
+import { MethodTypes } from '../constants/method.types';
+import { Constants } from '../constants/app.constants';
 
 @Injectable()
 export class BandsService {
@@ -20,14 +21,11 @@ export class BandsService {
   }
 
   async getBandsDataFromApi(): Promise<Musicfestival> {
-    return this.httpService
-      .get(this.sharedService.apiEndPointUrl())
-      .pipe(map((response) => response.data))
-      .pipe(
-        catchError((error: AxiosError) => {
-          this.logger.error(error.response.data);
-          throw 'An error happened!';
-        }),
-      ) as Musicfestival;
+    return request(
+      MethodTypes.GET,
+      `${process.env.BASE_URL}${Constants.festival}`,
+      null,
+      null,
+    ) as Musicfestival;
   }
 }

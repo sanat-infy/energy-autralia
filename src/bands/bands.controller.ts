@@ -6,7 +6,7 @@ export class BandsController {
   constructor(private readonly bandsService: BandsService) {}
 
   @Get()
-  getBandsList(): object {
+  getBandsList() {
     return this.bandsService.getBands();
   }
 }
